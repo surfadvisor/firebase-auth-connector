@@ -1,0 +1,17 @@
+node_modules/**/*
+.expo/*
+npm-debug.*
+*.jks
+*.p12
+*.key
+*.mobileprovision
+debug.log
+
+secrets
+*.patch
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
