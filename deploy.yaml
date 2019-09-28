@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: firebase-auth-connector
+spec:
+  selector:
+    matchLabels:
+      app: firebase-auth-connector
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: firebase-auth-connector
+    spec:
+      containers:
+        - name: firebase-auth-connector
+          image: surfadvisor/firebase-auth-connector:latest
+          ports:
+            - containerPort: 8080
+          envFrom:
+            - secretRef:
+                name: firebase-auth-secrets
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: firebase-auth-connector
+spec:
+  selector:
+    app: firebase-auth-connector
+  ports:
+    - name: http
+      port: 8080
+      targetPort: 8080
+      protocol: TCP
+  type: ClusterIP
