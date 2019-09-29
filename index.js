@@ -13,13 +13,14 @@ const verifyToken = async (req, res) => {
 
     if (decodedToken) {
       const uid = decodedToken.uid;
-      res.set('Set-userId', uid);
+      res.set('Set-x-user-id', uid);
+      res.set('Unset-Authorization', 'true');
 
-      console.log(`decoded userId: ${uid} from ID Token: ${idToken.substring(0, 10)}...`);
+      log(req, `decoded userId: ${uid} from ID Token: ${idToken.substring(0, 20)}...`);
       return res.status(204).send('ok')
     }
   } catch (e) {
-    console.log('exception thrown while verifying token: ' + e.message)
+    log(req, 'exception thrown while verifying token: ' + e.message)
   }
 
   return res.status(401).send('Unauthorized')
@@ -30,5 +31,8 @@ app.get('/verify-token', verifyToken);
 app.listen(PORT, () => {
   console.log(`Server Running on port: ${PORT}`);
 });
+
+const log = (req, msg) =>
+    console.log(`[${new Date().toISOString()}][${req.headers["x-request-id"]}] ${msg}`);
 
 module.exports = app;
