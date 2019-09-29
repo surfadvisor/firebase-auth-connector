@@ -48,7 +48,7 @@ describe('Token Test', () => {
     .end((err, res) => {
       expect(err).to.be.null;
       expect(res).to.have.status(204);
-      expect(res.get('Set-userId')).to.eq(uid);
+      expect(res.get('Set-x-user-id')).to.eq(uid);
       expect(res.text).to.be.a('string');
       done();
     })
