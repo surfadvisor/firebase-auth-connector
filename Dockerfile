@@ -1,4 +1,4 @@
-FROM node:10
+FROM node:lts
 
 MAINTAINER Daniel Poznański "misterdannypl@gmail.com"
 
